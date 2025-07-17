@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GreenFarmers - Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      scroll-behavior: smooth;
+      background: #000;
+      color: white;
+    }
+
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #farming-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover,
+    .account-icon:hover {
+      color: #4CAF50;
+    }
+
+    .account-icon {
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      max-width: 90%;
+    }
+
+    .hero-content h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 12px 24px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-container {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.95);
+        padding: 15px 20px;
+        border-radius: 8px;
+        width: 200px;
+      }
+
+      .nav-container.active {
+        display: flex;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+
+      .hero-content h1 {
+        font-size: 28px;
+      }
+
+      .hero-content p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="home">
+    <video autoplay muted loop id="farming-video">
+      <source src="vecteezy_the-farmer-is-working-on-his-field-in-the-evening_3054771.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="logo">🌱 GreenFarmers</div>
+      <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+      <div class="nav-container" id="navContainer">
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Product</a></li>
+          <a href="account.html">Account</a>  
+        </ul>
+        <div class="account-icon" onclick="openModal()">
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <h1>Welcome to GreenFarmers</h1>
+      <p>Empowering sustainable farming for a greener tomorrow.</p>
+      <p>✅ Farmers earn the full value of their crops — no middlemen.</p>
+      <p>🧑‍🌾 Clean food. Clear source. Complete trust.</p>
+      <a href="#" class="btn">Learn More</a>
+    </div>
+  </header>
+
+  <!-- Modal for Customer & Farmer -->
+  <div id="profileModal" class="modal" style="display:none;">
+    <div class="modal-content" style="background:#222; padding:20px; border-radius:8px; max-width: 400px; margin: auto; margin-top: 100px; color:white;">
+      <span class="close" onclick="closeModal()" style="cursor:pointer; float:right; font-size:24px;">&times;</span>
+      <h3>User Account</h3>
+
+      <div style="margin-bottom: 10px;">
+        <label><input type="radio" name="userType" value="customer" checked /> Customer</label>
+        <label style="margin-left: 20px;"><input type="radio" name="userType" value="farmer" /> Farmer</label>
+      </div>
+
+      <input type="text" id="name" placeholder="Full Name" required style="width: 100%; margin: 8px 0; padding: 8px;" />
+      <input type="tel" id="mobile" placeholder="Mobile Number" required style="width: 100%; margin: 8px 0; padding: 8px;" />
+      <input type="email" id="email" placeholder="Email Address" required style="width: 100%; margin: 8px 0; padding: 8px;" />
+
+      <div id="customerFields">
+        <input type="text" id="address" placeholder="Delivery Address" style="width: 100%; margin: 8px 0; padding: 8px;" />
+      </div>
+
+      <div id="farmerFields" style="display:none;">
+        <input type="text" id="farmLocation" placeholder="Farm Location" style="width: 100%; margin: 8px 0; padding: 8px;" />
+        <input type="text" id="productType" placeholder="Products Grown (e.g., Mango, Rice)" style="width: 100%; margin: 8px 0; padding: 8px;" />
+      </div>
+
+      <button onclick="submitForm()" style="background:#4CAF50; border:none; color:white; padding:10px 20px; cursor:pointer; border-radius:5px;">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('profileModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('profileModal')) {
+        closeModal();
+      }
+    };
+
+    function toggleMenu() {
+      document.getElementById("navContainer").classList.toggle("active");
+    }
+
+    // Show fields based on user type
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('input[name="userType"]').forEach((input) => {
+        input.addEventListener("change", (e) => {
+          const type = e.target.value;
+          document.getElementById("customerFields").style.display = type === "customer" ? "block" : "none";
+          document.getElementById("farmerFields").style.display = type === "farmer" ? "block" : "none";
+        });
+      });
+    });
+
+    function submitForm() {
+      const name = document.getElementById("name").value;
+      const mobile = document.getElementById("mobile").value;
+      const email = document.getElementById("email").value;
+      const userType = document.querySelector('input[name="userType"]:checked').value;
+
+      let extraInfo = "";
+      if (userType === "customer") {
+        const address = document.getElementById("address").value;
+        extraInfo = `Address: ${address}`;
+      } else {
+        const farmLocation = document.getElementById("farmLocation").value;
+        const productType = document.getElementById("productType").value;
+        extraInfo = `Farm Location: ${farmLocation}\nProducts: ${productType}`;
+      }
+
+      alert(`Registered as ${userType.toUpperCase()}:\nName: ${name}\nMobile: ${mobile}\nEmail: ${email}\n${extraInfo}`);
+      closeModal();
+    }
+  </script>
+</body>
+</html>
